@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OneBlock Rifts</title>
+<meta name="description" content="OneBlock: Rifts – CZ/SK Minecraft server. Začni na jediném bloku, otevírej trhliny, poraz bosse, chytej meteory a sbírej runy a legendárky. IP: play.rifts.cz">
+<meta property="og:title" content="OneBlock: Rifts – play.rifts.cz">
+<meta property="og:description" content="Český OneBlock server s trhlinami, bossy, meteory a runami. Připoj se na play.rifts.cz">
+<meta property="og:image" content="https://rifts.cz/assets/og.jpg">
+<meta property="og:url" content="https://rifts.cz/">
+<meta name="theme-color" content="#0b0812">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Jedna stránka s kotvami: temný svět trhlin, velké titulky jako ve videích, rendery skutečných modelů ze hry. */
+  :root {
+    color-scheme: dark;
+    --bg: #0b0812; --bg2: #120d1d; --card: #17122a; --line: #2c2444;
+    --text: #efeaff; --muted: #a8a3c0; --violet: #b65cff; --cyan: #38ddf8; --gold: #ffc857; --red: #f87171;
+    --grad: linear-gradient(90deg, #b65cff, #38ddf8);
+    --display: Anton, Impact, "Arial Narrow Bold", sans-serif; --body: Rubik, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 var(--body); overflow-x: hidden; }
+  img { max-width: 100%; display: block; }
+  a { color: var(--cyan); }
+  h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.02; text-transform: uppercase; letter-spacing: .02em; text-wrap: balance; margin: 0; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 22px; }
+  .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .px { image-rendering: pixelated; }
+  :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+  /* navigace */
+  nav { position: sticky; top: 0; z-index: 20; background: rgba(11,8,18,.86); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; gap: 18px; height: 64px; }
+  .logo { display: flex; align-items: center; gap: 10px; font: 400 22px var(--display); letter-spacing: .06em; color: var(--text); text-decoration: none; }
+  .logo img { width: 40px; height: 32px; object-fit: contain; }
+  .links { margin-left: auto; display: flex; align-items: center; gap: 22px; }
+  .links a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 15px; }
+  .links a:hover { color: var(--text); }
+  .links a.cta { color: #0b0812; background: var(--gold); padding: 8px 14px; font-weight: 700; }
+  #menu { display: none; margin-left: auto; background: none; border: 1px solid var(--line); color: var(--text); font: 600 15px var(--body); padding: 8px 12px; cursor: pointer; }
+  @media (max-width: 860px) {
+    #menu { display: block; }
+    .links { display: none; position: absolute; left: 0; right: 0; top: 64px; flex-direction: column; align-items: stretch; gap: 0; background: var(--bg2); border-bottom: 1px solid var(--line); padding: 8px 22px 18px; }
+    .links.open { display: flex; }
+    .links a { padding: 12px 0; font-size: 17px; border-bottom: 1px solid var(--line); }
+    .links a.cta { margin-top: 14px; text-align: center; border: 0; }
+  }
+
+  /* úvod */
+  .hero { position: relative; overflow: hidden; padding: 64px 0 56px; background: radial-gradient(ellipse 60% 70% at 78% 40%, #2a1160 0%, transparent 70%), var(--bg); }
+  #fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; }
+  .tag { display: inline-flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+  .tag::before { content: ""; width: 44px; height: 3px; background: var(--gold); }
+  .hero h1 { font-size: clamp(64px, 11vw, 150px); margin: 14px 0 18px; text-shadow: 0 6px 0 rgba(0,0,0,.5); }
+  .hero h1 span { display: block; }
+  .hero h1 .grad { font-size: 1.35em; filter: drop-shadow(0 0 34px rgba(182,92,255,.55)); }
+  .lead { font-size: 19px; color: #d9d4ee; max-width: 560px; margin: 0 0 26px; }
+  .ip { display: flex; flex-wrap: wrap; gap: 12px; align-items: stretch; }
+  .ipbox { display: flex; background: var(--card); border: 1px solid var(--line); }
+  .ipbox code { font: 600 21px var(--body); padding: 13px 18px; color: var(--text); }
+  .ipbox button { border: 0; background: var(--gold); color: #0b0812; font: 700 15px var(--body); padding: 0 18px; cursor: pointer; }
+  .ipbox button:hover { background: #ffd883; }
+  .btn { display: inline-flex; align-items: center; text-decoration: none; font-weight: 600; padding: 13px 20px; border: 1px solid var(--line); color: var(--text); background: rgba(255,255,255,.03); }
+  .btn.discord { background: #5865f2; border-color: #5865f2; }
+  .btn:hover { border-color: var(--violet); }
+  .status { margin-top: 18px; display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 15px; min-height: 24px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: #6b7280; }
+  .dot.on { background: #4ade80; box-shadow: 0 0 0 4px rgba(74,222,128,.18); }
+  .dot.off { background: var(--red); }
+  .stage { position: relative; justify-self: center; width: min(310px, 74vw); }
+  .phone { position: relative; z-index: 1; aspect-ratio: 9 / 16; border-radius: 26px; overflow: hidden; border: 2px solid #3a2f5c; box-shadow: 0 30px 90px rgba(182,92,255,.35); background: #000; }
+  .phone video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stage img.f1 { position: absolute; z-index: 2; width: 46%; left: -30%; bottom: 4%; filter: drop-shadow(0 0 26px rgba(182,92,255,.7)); animation: bob 5s ease-in-out infinite; }
+  .stage img.f2 { position: absolute; z-index: 2; width: 44%; right: -28%; top: 6%; filter: drop-shadow(0 0 26px rgba(255,138,60,.6)); animation: bob 6s ease-in-out -2s infinite; }
+  @keyframes bob { 50% { transform: translateY(-14px); } }
+  @media (max-width: 860px) { .hero { padding-top: 40px; } .hero .wrap { grid-template-columns: 1fr; } .stage img.f1 { left: -16%; } .stage img.f2 { right: -14%; } }
+
+  /* čísla */
+  .nums { border-block: 1px solid var(--line); background: var(--bg2); }
+  .nums .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .nums div { padding: 22px 10px; text-align: center; border-left: 1px solid var(--line); }
+  .nums div:first-child { border-left: 0; }
+  .nums b { display: block; font: 400 clamp(38px, 6vw, 60px)/1 var(--display); color: var(--gold); font-variant-numeric: tabular-nums; }
+  .nums span { color: var(--muted); font-size: 14px; letter-spacing: .14em; text-transform: uppercase; }
+  @media (max-width: 560px) { .nums .wrap { grid-template-columns: repeat(2, 1fr); } .nums div:nth-child(3) { border-left: 0; } .nums div:nth-child(n+3) { border-top: 1px solid var(--line); } }
+
+  section { padding: 78px 0; }
+  .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin: 0 0 10px; }
+  section h2 { font-size: clamp(44px, 7vw, 84px); margin: 0 0 14px; }
+  .sub { color: var(--muted); margin: 0 0 36px; max-width: 640px; }
+
+  /* systémy */
+  .sys { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  .s { position: relative; overflow: hidden; background: linear-gradient(180deg, color-mix(in srgb, var(--c) 16%, var(--card)), var(--card) 62%); border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 8px; grid-column: span 2; min-height: 330px; }
+  .s.big { grid-column: span 3; min-height: 380px; }
+  .s .art { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 150px; }
+  .s .art img { max-height: 190px; width: auto; filter: drop-shadow(0 0 22px color-mix(in srgb, var(--c) 65%, transparent)); transition: transform .3s; }
+  .s.big .art img { max-height: 240px; }
+  .s .art.tri img { max-width: 31%; height: auto; max-height: none; object-fit: contain; }
+  .s:hover .art img { transform: translateY(-6px) scale(1.04); }
+  .s .n { font: 400 15px var(--display); letter-spacing: .1em; color: var(--c); }
+  .s h3 { font-size: 34px; }
+  .s p { margin: 0; color: #cfc9e6; font-size: 15.5px; }
+  .icons { display: grid; grid-template-columns: repeat(5, 54px); gap: 8px; }
+  .icons img { width: 54px; height: 54px; padding: 7px; background: #0f0b1c; border: 1px solid var(--line); filter: none !important; }
+  @media (max-width: 980px) { .s, .s.big { grid-column: span 3; } }
+  @media (max-width: 620px) { .s, .s.big { grid-column: span 6; min-height: 0; } }
+
+  /* bossové */
+  #bossove { background: linear-gradient(180deg, var(--bg), #150a14 50%, var(--bg)); }
+  .bosses { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .b { position: relative; background: radial-gradient(ellipse 90% 60% at 50% 38%, color-mix(in srgb, var(--c) 30%, transparent), transparent 70%), var(--card); border: 1px solid var(--line); padding: 18px 18px 20px; display: flex; flex-direction: column; }
+  .b .art { height: 210px; display: flex; align-items: center; justify-content: center; }
+  .b .art img { max-height: 200px; width: auto; filter: drop-shadow(0 0 24px color-mix(in srgb, var(--c) 70%, transparent)); transition: transform .3s; }
+  .b:hover .art img { transform: scale(1.08) rotate(-2deg); }
+  .b .act { font: 400 14px var(--display); letter-spacing: .12em; color: var(--c); margin-top: 8px; }
+  .b h3 { font-size: 30px; margin: 2px 0 6px; }
+  .b p { margin: 0; color: var(--muted); font-size: 14.5px; }
+  .b.last { grid-column: span 2; flex-direction: row; align-items: center; gap: 18px; }
+  .b.last .art { flex: 0 0 44%; }
+  @media (max-width: 980px) { .bosses { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .bosses { grid-template-columns: 1fr; } .b.last { grid-column: auto; flex-direction: column; align-items: stretch; } }
+
+  /* jak začít */
+  .steps { counter-reset: s; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .step { background: var(--card); border: 1px solid var(--line); padding: 22px; }
+  .step::before { counter-increment: s; content: "0" counter(s); display: block; font: 400 56px/1 var(--display); background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 10px; }
+  .step h3 { font-size: 24px; margin-bottom: 8px; }
+  .step p { margin: 0; color: #cfc9e6; font-size: 15px; }
+  code.k { background: rgba(255,200,87,.12); color: var(--gold); padding: 1px 6px; font-size: .92em; white-space: nowrap; }
+  @media (max-width: 980px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+
+  /* VIP */
+  #vip { background: var(--bg2); border-block: 1px solid var(--line); }
+  .vip { display: grid; grid-template-columns: .8fr 1.2fr; gap: 26px; align-items: start; }
+  .price { background: linear-gradient(160deg, rgba(255,200,87,.18), rgba(182,92,255,.12)); border: 1px solid rgba(255,200,87,.4); padding: 26px; }
+  .price .big { font: 400 70px/1 var(--display); color: var(--gold); }
+  .price .big small { font: 500 18px var(--body); color: var(--muted); }
+  .price p { color: #d9d4ee; margin: 14px 0 0; }
+  .price img { width: 150px; margin: 0 auto 6px; filter: drop-shadow(0 0 22px rgba(255,200,87,.5)); }
+  .perks { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+  .card { background: var(--card); border: 1px solid var(--line); padding: 18px; }
+  .perks .card h3 { font: 700 15px var(--body); color: var(--gold); letter-spacing: .08em; margin: 0 0 8px; }
+  .perks ul { margin: 0; padding-left: 18px; color: #d9d4ee; font-size: 15px; }
+  .perks li { margin: 3px 0; }
+  @media (max-width: 860px) { .vip { grid-template-columns: 1fr; } }
+
+  /* pravidla */
+  .rules { columns: 2 380px; column-gap: 34px; }
+  .rules h3 { break-after: avoid; font: 700 18px var(--body); text-transform: none; letter-spacing: 0; color: var(--gold); margin: 6px 0 8px; }
+  .rules ol { margin: 0 0 18px; padding-left: 28px; color: #d9d4ee; font-size: 15px; break-inside: avoid-column; }
+  .rules li { margin: 4px 0; }
+  .rules p.note { color: var(--muted); font-size: 15px; margin: 0 0 14px; }
+
+  /* závěr */
+  .join { position: relative; overflow: hidden; text-align: center; background: radial-gradient(ellipse 60% 90% at 50% 100%, #2a1160, transparent 70%), var(--bg); border-top: 1px solid var(--line); }
+  .join h2 { font-size: clamp(48px, 9vw, 110px); }
+  .join .ip { justify-content: center; margin-top: 26px; }
+  footer { border-top: 1px solid var(--line); padding: 30px 0 46px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 14px 30px; justify-content: space-between; }
+  .toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(20px); background: var(--card); border: 1px solid var(--gold); padding: 10px 16px; opacity: 0; transition: .25s; pointer-events: none; z-index: 30; }
+  .toast.show { opacity: 1; transform: translateX(-50%); }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .stage img, .s .art img, .b .art img { animation: none; transition: none; } }
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top"><img src="assets/logo.png" alt=""> ONEBLOCK <span class="grad">RIFTS</span></a>
+    <button id="menu" type="button" aria-expanded="false" aria-controls="links">Menu</button>
+    <div class="links" id="links">
+      <a href="#hra">Co tě čeká</a>
+      <a href="#bossove">Bossové</a>
+      <a href="#zacit">Jak začít</a>
+      <a href="#vip">VIP</a>
+      <a href="#pravidla">Pravidla</a>
+      <a href="https://discord.gg/wtYRhRkCWF">Discord</a>
+      <a class="cta" href="#pripoj">play.rifts.cz</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <span class="tag">CZ / SK · Minecraft Java · Alfa</span>
+      <h1><span>OneBlock</span><span class="grad">Rifts</span></h1>
+      <p class="lead">Začínáš na jediném kouzelném bloku. Vytěžíš ho a objeví se další. Pak se kolem něj roztrhne prostor: z trhlin lezou bossové, z nebe padají meteory a tvůj ostrov roste akt po aktu.</p>
+      <div class="ip">
+        <div class="ipbox"><code>play.rifts.cz</code><button class="copy" type="button">Kopírovat IP</button></div>
+        <a class="btn discord" href="https://discord.gg/wtYRhRkCWF">Discord</a>
+      </div>
+      <div class="status"><span class="dot" id="dot"></span><span id="stat">Zjišťuji stav serveru…</span></div>
+    </div>
+    <div class="stage">
+      <img class="f1" src="assets/boss6.webp" alt="">
+      <img class="f2" src="assets/boss5.webp" alt="">
+      <div class="phone"><video src="assets/promo.mp4" poster="assets/promo.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Ukázka systémů serveru"></video></div>
+    </div>
+  </div>
+</header>
+
+<div class="nums">
+  <div class="wrap">
+    <div><b>7</b><span>vlastních bossů</span></div>
+    <div><b>6</b><span>aktů ostrova</span></div>
+    <div><b>60+</b><span>run</span></div>
+    <div><b>16</b><span>petů</span></div>
+  </div>
+</div>
+
+<section id="hra">
+  <div class="wrap">
+    <p class="eyebrow">Vlastní systémy</p>
+    <h2>Co tě <span class="grad">čeká</span></h2>
+    <p class="sub">Klasický OneBlock a k němu svět, který jinde nenajdeš. Všechno na téhle stránce jsme postavili od nuly pro tenhle server.</p>
+    <div class="sys">
+      <article class="s big" style="--c:#b65cff"><div class="art tri"><img src="assets/kolaps.webp" alt="Kolapsová trhlina"><img src="assets/rift.webp" alt="Bojová trhlina"><img src="assets/vyprava.webp" alt="Výpravná trhlina"></div><span class="n">01</span><h3>Trhliny</h3><p>Otevřou se přímo na tvém ostrově. Uvnitř čeká boss, výprava za úlomky, kolaps, kde se ti cesta rozpadá pod nohama, nebo Runová ozvěna.</p></article>
+      <article class="s big" style="--c:#ffb347"><div class="art"><img src="assets/meteor.webp" alt="Strážce meteoru"></div><span class="n">02</span><h3>Meteory</h3><p>Padají hráčům, kteří hrají. Dotěž je, než se rozpadnou. Ty vzácné hlídá vlastní strážce.</p></article>
+      <article class="s" style="--c:#b65cff"><div class="art"><div class="icons"><img class="px" src="assets/i/runa_bourka.png" alt=""><img class="px" src="assets/i/runa_mraz.png" alt=""><img class="px" src="assets/i/runa_magmovy_dech.png" alt=""><img class="px" src="assets/i/runa_upir.png" alt=""><img class="px" src="assets/i/runa_vitr.png" alt=""><img class="px" src="assets/i/runa_stit_trhliny.png" alt=""><img class="px" src="assets/i/runa_lovec_trhlin.png" alt=""><img class="px" src="assets/i/runa_zurivost.png" alt=""><img class="px" src="assets/i/runa_hlubina.png" alt=""><img class="px" src="assets/i/runa_ledovy_sip.png" alt=""></div></div><span class="n">03</span><h3>Runy</h3><p>Desítky run pro nástroje, zbraně a brnění. Spojuj je na Runovém stole a skládej runová slova.</p></article>
+      <article class="s" style="--c:#ff6ad5"><div class="art"><div class="icons"><img class="px" src="assets/i/koruna_zimniho_krale.png" alt=""><img class="px" src="assets/i/duse_krakena.png" alt=""><img class="px" src="assets/i/kralovske_zezlo.png" alt=""><img class="px" src="assets/i/ulomek_hvezdy.png" alt=""><img class="px" src="assets/i/ledovy_diamant.png" alt=""><img class="px" src="assets/i/srdce_kralovstvi.png" alt=""><img class="px" src="assets/i/duse_rytire_trhliny.png" alt=""><img class="px" src="assets/i/zhave_jadro.png" alt=""><img class="px" src="assets/i/kralovsky_prsten_moci.png" alt=""><img class="px" src="assets/i/fragment_komety.png" alt=""></div></div><span class="n">04</span><h3>Sbírky</h3><p>Legendárky z trhlin, meteorů, přírody i rybaření. Dokončená sbírka dá trvalý bonus.</p></article>
+      <article class="s" style="--c:#38ddf8"><div class="art"><img src="assets/rybar.webp" alt="Rybář"></div><span class="n">05</span><h3>Rybaření</h3><p>Vlastní minihra, desítky ryb, speciální pruty a Rybář, u kterého vyměníš úlovky.</p></article>
+      <article class="s big" style="--c:#7cf29a"><div class="art tri"><img src="assets/pet1.webp" alt="Pet Fenek"><img src="assets/pet2.webp" alt="Pet Gryfík"><img src="assets/pet3.webp" alt="Pet Dýňáček"></div><span class="n">06</span><h3>Pety a živý ostrov</h3><p>Mazlíčci, kteří tě doprovází, tituly za jménem a ostrov, na kterém sám vzniká les, rybník nebo osada.</p></article>
+      <article class="s big" style="--c:#ffc857"><div class="art"><img src="assets/kupec.webp" alt="Obchodník trhliny"></div><span class="n">07</span><h3>Každý den něco</h3><p>Denní zakázky, hádanka, série plamínků, tržiště se šesti obchodníky a nabídkou dvakrát denně a týdenní cíle celého serveru.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="bossove">
+  <div class="wrap">
+    <p class="eyebrow">Každý akt má svého</p>
+    <h2>Bossové <span class="grad">z trhlin</span></h2>
+    <p class="sub">Vlastní modely, vlastní útoky, vlastní aréna. Pokusů máš, kolik chceš, a v trhlině o věci nepřijdeš.</p>
+    <div class="bosses">
+      <article class="b" style="--c:#7cf29a"><div class="art"><img src="assets/boss1.webp" alt="Hlubokořen"></div><span class="act">Akt I · les</span><h3>Hlubokořen</h3><p>Zarostlý kanec, který se rozbíhá přes celou arénu.</p></article>
+      <article class="b" style="--c:#ffb347"><div class="art"><img src="assets/boss2.webp" alt="Rudoklepec"></div><span class="act">Akt II · kaňon</span><h3>Rudoklepec</h3><p>Štír s klepety, žihadlem a písečnou bouří.</p></article>
+      <article class="b" style="--c:#38ddf8"><div class="art"><img src="assets/boss3.webp" alt="Kraken"></div><span class="act">Akt III · útes</span><h3>Kraken</h3><p>Chapadla, inkoust a vír, který tě stáhne k sobě.</p></article>
+      <article class="b" style="--c:#3fd6c0"><div class="art"><img src="assets/boss4.webp" alt="Ozvěna"></div><span class="act">Akt IV · jeskyně</span><h3>Ozvěna</h3><p>Sculkový lovec. Poslouchá, kde jsi, a pak zařve.</p></article>
+      <article class="b" style="--c:#ff8a3c"><div class="art"><img src="assets/boss5.webp" alt="Vyschlý ghast"></div><span class="act">Akt V · čedič</span><h3>Vyschlý ghast</h3><p>Salvy, nálety a déšť střel v Netheru.</p></article>
+      <article class="b" style="--c:#b65cff"><div class="art"><img src="assets/boss6.webp" alt="Rytíř trhliny"></div><span class="act">Akt VI · End</span><h3>Rytíř trhliny</h3><p>Skoky, rázové vlny a přivolaní pomocníci.</p></article>
+      <article class="b last" style="--c:#ff4a2a"><div class="art"><img src="assets/boss7.webp" alt="Magmový leviatan"></div><div><span class="act">Mimo akty · láva</span><h3>Magmový leviatan</h3><p>Jeho trhlinu otevře jen Žhnoucí kámen trhliny, který vylovíš z lávy.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="zacit">
+  <div class="wrap">
+    <p class="eyebrow">Za pár minut jsi na ostrově</p>
+    <h2>Jak <span class="grad">začít</span></h2>
+    <p class="sub">Stačí Minecraft Java Edition.</p>
+    <div class="steps">
+      <div class="step"><h3>Připoj se</h3><p>Otevři <b>Hra více hráčů → Přidat server</b> a zadej adresu <code class="k">play.rifts.cz</code>.</p></div>
+      <div class="step"><h3>Heslo a textury</h3><p>Poprvé se zaregistruj přes <code class="k">/register</code>, příště <code class="k">/login</code>. Balíček textur přijmi, jinak neuvidíš modely bossů, petů a obchodníků.</p></div>
+      <div class="step"><h3>Projdi výcvik</h3><p>Ukáže kouzelný blok, trhliny i první souboj. Máš v něm oddělený inventář, nic neztratíš. Vrátíš se přes <code class="k">/vycvik</code>.</p></div>
+      <div class="step"><h3>Těž a objevuj</h3><p><code class="k">/ob go</code> tě vezme na ostrov, <code class="k">/menu</code> otevře rozcestník. Kamaráda pozveš přes <code class="k">/ob team</code>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="vip">
+  <div class="wrap">
+    <p class="eyebrow">Podpoř server</p>
+    <h2><span class="grad">VIP</span></h2>
+    <p class="sub">Všechno herní se dá získat i hraním. VIP je rychlejší, pohodlnější a podpoří provoz serveru.</p>
+    <div class="vip">
+      <div class="price">
+        <img src="assets/pet2.webp" alt="VIP pet Gryfík">
+        <div class="big">99 Kč <small>/ měsíc</small></div>
+        <p>Zatím na vyžádání: založ si ticket na <a href="https://discord.gg/wtYRhRkCWF">Discordu</a> v kanálu <b>#založit-ticket</b>. Online obchod s automatickou platbou připravujeme.</p>
+        <p>Kdo server podpoří během alfy a bety, dostane po plném spuštění speciální kosmetickou odměnu.</p>
+      </div>
+      <div class="perks">
+        <div class="card"><h3>Odměny a postup</h3><ul><li><b>Dvojitá odměna</b> z bossů, výprav, kolapsů a meteorů</li><li>Lepší meteory na ostrově (epické a legendární častěji)</li><li><b>+1 štěstí</b> u kořisti</li><li><b>5</b> denních zakázek místo 3</li><li>Cesta trhlinou: <b>6</b> výzev týdně místo 5 a VIP řádek odměn</li><li>Obchodník z trhliny: <b>2</b> výměny týdně místo 1</li><li><b>2</b> zmrazení série plamínků týdně místo 1</li></ul></div>
+        <div class="card"><h3>Ostrov a pohodlí</h3><ul><li>Ostrov <b>150 × 150</b> (s vylepšením až 200 × 200)</li><li><b>6</b> členů ostrova a <b>3</b> domovy</li><li>Příkazy <b>/craft</b>, <b>/ec</b>, <b>/hat</b>, <b>/feed</b> (1× za 10 min)</li><li>Tržiště na dálku – <b>/trziste</b> odkudkoli</li><li>Aukce: <b>10</b> položek a poloviční daň</li><li>Přednost, když je server plný</li></ul></div>
+        <div class="card"><h3>Kosmetika</h3><ul><li>Barva chatu a barva jména</li><li>Stopa za tebou</li><li>Pet <b>Gryfík</b></li><li>VIP tituly</li><li>Role <b>VIP</b> na Discordu (po <b>/discord link</b>)</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pravidla">
+  <div class="wrap">
+    <p class="eyebrow">Ať je to fér</p>
+    <h2>Pravidla</h2>
+    <p class="sub">Ve hře je najdeš příkazem <code class="k">/pravidla</code>, na Discordu v kanálu #pravidla.</p>
+    <div class="rules">
+<p class="note">Vítej na ONEBLOCK RIFTS! Naším cílem je vytvořit příjemné prostředí, kde si každý může užít OneBlock, budovat svůj ostrov, obchodovat a objevovat nové dimenze.</p>
+<p class="note">Připojením na server souhlasíš s následujícími pravidly.</p>
+<h3>Chování a komunikace</h3>
+<ol start="1">
+<li>Chovej se k ostatním hráčům slušně a s respektem.</li>
+<li>Je zakázáno urážení, šikana, vyhrožování, diskriminace a cílené obtěžování ostatních.</li>
+<li>Nepoužívej chat k nadměrnému spamování, floodování, CAPS LOCKU nebo opakovanému posílání nesmyslných zpráv.</li>
+<li>Je zakázáno propagovat jiné servery, služby nebo komunity bez souhlasu vedení.</li>
+<li>Nevydávej se za člena administrace ani jiného hráče.</li>
+</ol>
+<h3>Férová hra</h3>
+<ol start="6">
+<li>Je zakázáno používat cheaty, hack klienty, automatizované boty a jiné nepovolené nástroje poskytující neférovou výhodu.</li>
+<li>Zakázáno je zneužívání chyb serveru, pluginů a herních mechanik za účelem získání neoprávněných výhod.</li>
+<li>Jakoukoliv nalezenou chybu, exploity nebo možnost duplikování předmětů oznam administraci.</li>
+<li>Je zakázáno obcházet omezení serveru nebo tresty pomocí alternativních účtů.</li>
+<li>Je zakázáno těžit AFK – bez své přítomnosti, s autoclickerem, makrem nebo zatíženým tlačítkem. Při těžbě se občas objeví jednoduchý příklad, na který odpověz do chatu. Kdo neodpoví a těží dál, bude přesunut na spawn a dostane přestupek; opakované porušení znamená kick a poté ban. Hráči nečinní 5 minut se z ostrova automaticky přesouvají na spawn.</li>
+</ol>
+<h3>Ostrovy a stavby</h3>
+<ol start="11">
+<li>Nenič, neupravuj ani jinak nepoškozuj cizí stavby a ostrovy bez svolení jejich vlastníka.</li>
+<li>Nevstupuj do cizích ostrovů za účelem krádeží, poškozování staveb nebo jiného škodlivého jednání.</li>
+<li>Respektuj nastavená oprávnění ostrovů a nepokoušej se obcházet jejich ochranu.</li>
+<li>Stavby a dekorace musí odpovídat běžným pravidlům slušnosti. Zakázán je nevhodný, extremistický nebo urážlivý obsah.</li>
+</ol>
+<h3>Obchodování a ekonomika</h3>
+<ol start="15">
+<li>Při obchodování dodržuj dohodnuté podmínky a nesnaž se ostatní hráče podvádět.</li>
+<li>Je zakázáno zneužívat chyby obchodního systému, aukcí nebo ekonomiky.</li>
+<li>Nezneužívej obchodování k podvodům, manipulaci s předměty nebo obcházení herních omezení.</li>
+<li>Obchodování za skutečné peníze nebo jiné externí protihodnoty je možné pouze prostřednictvím případných oficiálních a povolených systémů serveru.</li>
+</ol>
+<h3>Administrace a bezpečnost</h3>
+<ol start="19">
+<li>Respektuj pokyny členů administrace, pokud souvisejí s bezpečností, provozem a pravidly serveru.</li>
+<li>Nezneužívej bugy, technické chyby ani nedostatky serveru k poškozování ostatních nebo získávání výhod.</li>
+<li>Nezveřejňuj osobní údaje ostatních hráčů ani se nepokoušej získávat jejich hesla.</li>
+<li>Pokud nesouhlasíš s uděleným trestem, můžeš požádat administraci o jeho přezkoumání. Neřeš spory veřejným spamováním chatu.</li>
+</ol>
+<h3>Závěrečná ustanovení</h3>
+<ol start="23">
+<li>Každý hráč odpovídá za svůj účet a jeho zabezpečení.</li>
+<li>Neznalost pravidel neomlouvá jejich porušování.</li>
+<li>Administrace si vyhrazuje právo posoudit jednání, které není výslovně uvedeno v pravidlech, pokud poškozuje server nebo jeho komunitu.</li>
+<li>Závažnost porušení pravidel určuje podobu trestu. Podle situace může jít o upozornění, mute, kick, dočasný ban nebo permanentní ban.</li>
+</ol>
+<h3>⚠ Důležité upozornění – ALFA VERZE</h3>
+<p class="note">Server je aktuálně ve vývoji a testovacím provozu. Některé herní mechaniky nemusí fungovat správně, mohou se objevit chyby a v krajním případě může dojít ke změnám nebo resetům herních dat.</p>
+<p class="note">Nalezené chyby prosím nahlaš administraci. Zneužívání chyb není povoleno.</p>
+<p class="note">Děkujeme, že pomáháš budovat ONEBLOCK RIFTS! ❤</p>
+
+    </div>
+  </div>
+</section>
+
+<section class="join" id="pripoj">
+  <div class="wrap">
+    <p class="eyebrow">Tvůj blok čeká</p>
+    <h2>Připoj se na <span class="grad">Rifts</span></h2>
+    <div class="ip">
+      <div class="ipbox"><code>play.rifts.cz</code><button class="copy" type="button">Kopírovat IP</button></div>
+      <a class="btn discord" href="https://discord.gg/wtYRhRkCWF">Discord</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 OneBlock: Rifts · <a href="https://discord.gg/wtYRhRkCWF">Discord</a> · play.rifts.cz · info@rifts.cz</div>
+    <div>Není oficiální produkt Minecraftu. Není schváleno společností Mojang ani Microsoft a nemá s nimi spojitost.</div>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status">IP zkopírována</div>
+
+<script>
+(function () {
+  const ip = "play.rifts.cz", toast = document.getElementById("toast");
+  document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(ip); toast.textContent = "IP zkopírována – vlož ji do Minecraftu"; }
+    catch (e) { toast.textContent = "Adresa: " + ip; }
+    toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2200);
+  }));
+  const menu = document.getElementById("menu"), links = document.getElementById("links");
+  menu.addEventListener("click", () => menu.setAttribute("aria-expanded", links.classList.toggle("open")));
+  links.addEventListener("click", e => { if (e.target.tagName === "A") { links.classList.remove("open"); menu.setAttribute("aria-expanded", "false"); } });
+  // stav serveru přes veřejné API mcsrvstat.us (jen čtení, nic se neodesílá)
+  const dot = document.getElementById("dot"), stat = document.getElementById("stat");
+  fetch("https://api.mcsrvstat.us/3/" + ip).then(r => r.json()).then(d => {
+    if (d && d.online) { dot.className = "dot on"; const n = d.players ? d.players.online : 0, max = d.players ? d.players.max : 0;
+      stat.textContent = "Server běží · hráčů online: " + n + (max ? " / " + max : ""); }
+    else { dot.className = "dot off"; stat.textContent = "Server je teď vypnutý – mrkni na Discord."; }
+  }).catch(() => { stat.textContent = "Stav serveru uvidíš po připojení."; });
+  // úvod: trhlina a jiskry na plátně
+  const c = document.getElementById("fx"), g = c.getContext("2d"), still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let W, H, pts, sp;
+  function size() { W = c.width = c.offsetWidth; H = c.height = c.offsetHeight; let s = 7; const r = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    const x0 = W * (W > 860 ? 0.8 : 0.5); pts = []; for (let i = 0; i <= 18; i++) pts.push([x0 + (i % 18 ? (r() - .5) * 130 : 0), H * i / 18]);
+    sp = Array.from({length: 46}, () => ({x: r() * W, y: r() * H, v: 12 + r() * 30, s: 2 + Math.floor(r() * 3) * 2, p: r() * 6.3, c: r() > .5 ? "#b65cff" : "#38ddf8"})); }
+  function draw(ms) { const t = ms / 1000; g.clearRect(0, 0, W, H); g.globalCompositeOperation = "lighter"; g.lineJoin = "miter";
+    for (const [lw, col, a] of [[46, "#7a2cff", .10], [16, "#b65cff", .22], [5, "#e9c8ff", .5], [1.5, "#fff", .8]]) { g.strokeStyle = col; g.globalAlpha = a * (W > 860 ? 1 : .3) * (.75 + .25 * Math.sin(t * 3)); g.lineWidth = lw; g.beginPath(); pts.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.stroke(); }
+    for (const p of sp) { const y = ((p.y - p.v * t) % H + H) % H; g.globalAlpha = .25 + .6 * Math.abs(Math.sin(t * 2 + p.p)); g.fillStyle = p.c; g.fillRect(p.x + Math.sin(t + p.p) * 14, y, p.s, p.s); }
+    g.globalAlpha = 1; if (!still) requestAnimationFrame(draw); }
+  size(); addEventListener("resize", size); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
