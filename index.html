@@ -139,6 +139,24 @@
   @media (max-width: 980px) { .steps { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
 
+  /* nábor */
+  .roles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .role { background: linear-gradient(180deg, color-mix(in srgb, var(--c) 14%, var(--card)), var(--card) 55%); border: 1px solid var(--line); padding: 26px; display: flex; flex-direction: column; gap: 14px; }
+  .role .n { font: 400 15px var(--display); letter-spacing: .1em; color: var(--c); }
+  .role h3 { font-size: 44px; }
+  .role p { margin: 0; color: #cfc9e6; font-size: 15.5px; }
+  .role h4 { margin: 6px 0 0; font: 700 13px var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+  .role ul { margin: 0; padding-left: 20px; color: #d9d4ee; font-size: 15.5px; }
+  .role li { margin: 4px 0; }
+  .tpl { position: relative; margin-top: auto; background: #0f0b1c; border: 1px solid var(--line); }
+  .tpl pre { margin: 0; padding: 16px 16px 18px; font: 14px/1.6 ui-monospace, Consolas, monospace; color: #d9d4ee; white-space: pre-wrap; }
+  .tpl .head { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
+  .tpl button { border: 0; background: var(--gold); color: #0b0812; font: 700 13px var(--body); padding: 8px 12px; cursor: pointer; }
+  .how { counter-reset: h; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+  .how div { background: var(--card); border: 1px solid var(--line); padding: 18px 20px; color: #cfc9e6; font-size: 15.5px; }
+  .how div::before { counter-increment: h; content: counter(h) "."; font: 400 30px/1 var(--display); color: var(--gold); margin-right: 10px; }
+  @media (max-width: 860px) { .roles, .how { grid-template-columns: 1fr; } }
+
   /* VIP */
   #vip { background: var(--bg2); border-block: 1px solid var(--line); }
   .vip { display: grid; grid-template-columns: .8fr 1.2fr; gap: 26px; align-items: start; }
@@ -181,6 +199,7 @@
       <a href="#hra">Co tě čeká</a>
       <a href="#bossove">Bossové</a>
       <a href="#zacit">Jak začít</a>
+      <a href="#nabor">Nábor</a>
       <a href="#vip">VIP</a>
       <a href="#pravidla">Pravidla</a>
       <a href="https://discord.gg/wtYRhRkCWF">Discord</a>
@@ -263,6 +282,52 @@
       <div class="step"><h3>Heslo a textury</h3><p>Poprvé se zaregistruj přes <code class="k">/register</code>, příště <code class="k">/login</code>. Balíček textur přijmi, jinak neuvidíš modely bossů, petů a obchodníků.</p></div>
       <div class="step"><h3>Projdi výcvik</h3><p>Ukáže kouzelný blok, trhliny i první souboj. Máš v něm oddělený inventář, nic neztratíš. Vrátíš se přes <code class="k">/vycvik</code>.</p></div>
       <div class="step"><h3>Těž a objevuj</h3><p><code class="k">/ob go</code> tě vezme na ostrov, <code class="k">/menu</code> otevře rozcestník. Kamaráda pozveš přes <code class="k">/ob team</code>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="nabor">
+  <div class="wrap">
+    <p class="eyebrow">Přidej se k týmu</p>
+    <h2>Hledáme <span class="grad">buildery a testery</span></h2>
+    <p class="sub">Server je v alfě a stavíme ho za pochodu. Hledáme lidi, kteří chtějí být u toho a mít na něm kus své práce.</p>
+    <div class="roles">
+      <article class="role" style="--c:#7cf29a">
+        <span class="n">Stavitel</span>
+        <h3>Builder</h3>
+        <p>Hledáme někoho se zkušenostmi se stavbou. Stavíš ve vlastním návrhu ve Světě návrhů, k ruce máš WorldEdit a hotovou mapu po schválení nasadíme do hry.</p>
+        <h4>Co postavíš</h4>
+        <ul><li>Spawn</li><li>Boss arény</li><li>Tržiště</li><li>Další stavby pro naše custom pluginy</li></ul>
+        <h4>Co za to</h4>
+        <ul><li>Kredit: tvoje jméno u stavby</li><li>Možnost podílet se na vývoji serveru</li></ul>
+        <div class="tpl"><div class="head">Vzor žádosti <button type="button" data-copy="tb">Kopírovat</button></div><pre id="tb">Nick ve hře:
+Věk:
+Jak dlouho stavíš a na čem (servery, projekty):
+Ukázky staveb (screenshoty nebo odkazy):
+Co bys chtěl stavět (spawn / boss arény / tržiště / jiné):
+Umíš s WorldEditem? (ano / trochu / ne):
+Kolik času týdně můžeš stavět:</pre></div>
+      </article>
+      <article class="role" style="--c:#ffc857">
+        <span class="n">Alfa</span>
+        <h3>Tester</h3>
+        <p>Hraješ normálně na svém ostrově a říkáš nám, co nefunguje, co je moc těžké a co tě nebaví. Podle toho hru ladíme.</p>
+        <h4>Co budeš dělat</h4>
+        <ul><li>Hrát a zkoušet nové systémy jako první</li><li>Hlásit chyby přes tickety na Discordu</li><li>Posílat nápady a připomínky</li></ul>
+        <h4>Co za to</h4>
+        <ul><li>Hraješ dřív než ostatní</li><li>Kosmetická odměna po plném spuštění</li><li>Ovlivníš, jak bude hra vypadat</li></ul>
+        <div class="tpl"><div class="head">Vzor žádosti <button type="button" data-copy="tt">Kopírovat</button></div><pre id="tt">Nick ve hře:
+Věk:
+Kolik času týdně můžeš hrát:
+Zkušenosti s OneBlockem nebo testováním:
+Verze Minecraftu, na které hraješ:
+Proč chceš testovat právě u nás:</pre></div>
+      </article>
+    </div>
+    <div class="how">
+      <div>Připoj se na náš <a href="https://discord.gg/wtYRhRkCWF">Discord</a>.</div>
+      <div>V kanálu <b>#založit-ticket</b> klikni na <b>Nábor – builder</b> nebo <b>Nábor – tester</b>.</div>
+      <div>Do ticketu vlož vyplněný vzor. Admin tým se ti ozve přímo tam.</div>
     </div>
   </div>
 </section>
@@ -374,6 +439,12 @@
   document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", async () => {
     try { await navigator.clipboard.writeText(ip); toast.textContent = "IP zkopírována – vlož ji do Minecraftu"; }
     catch (e) { toast.textContent = "Adresa: " + ip; }
+    toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2200);
+  }));
+  document.querySelectorAll("[data-copy]").forEach(b => b.addEventListener("click", async () => {
+    const txt = document.getElementById(b.dataset.copy).textContent;
+    try { await navigator.clipboard.writeText(txt); toast.textContent = "Vzor zkopírován – vlož ho do ticketu"; }
+    catch (e) { toast.textContent = "Kopírování se nepovedlo, označ text ručně"; }
     toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2200);
   }));
   const menu = document.getElementById("menu"), links = document.getElementById("links");
