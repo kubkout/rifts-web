@@ -1,0 +1,8 @@
+<!DOCTYPE html><meta charset="utf-8"><meta name="robots" content="noindex"><title>send</title>
+<script>
+// Pomocná stránka: pošle veřejné promo video oknu, které ji otevřelo (nahrávání na sítě, kde nejde stáhnout soubor odjinud).
+(async () => { const n = new URLSearchParams(location.search).get('f') || 'nabor-builderu.mp4';
+  if (!/^[\w.-]+\.mp4$/.test(n) || !window.opener) { document.body.textContent = 'nic'; return; }
+  const buf = await (await fetch(n, {cache: 'no-store'})).arrayBuffer();
+  window.opener.postMessage({riftsVideo: n, buf}, 'https://www.tiktok.com', [buf]); document.body.textContent = 'odesláno ' + buf.byteLength; })();
+</script>
