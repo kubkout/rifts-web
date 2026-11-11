@@ -93,8 +93,8 @@
   .nums div:first-child { border-left: 0; }
   .nums b { display: block; font: 400 clamp(32px, 4.6vw, 54px)/1 var(--display); color: var(--gold); font-variant-numeric: tabular-nums; }
   .nums span { color: var(--muted); font-size: 14px; letter-spacing: .14em; text-transform: uppercase; }
-  @media (max-width: 900px) { .nums .wrap { grid-template-columns: repeat(6, 1fr); } .nums div { grid-column: span 2; } .nums div:nth-child(4) { grid-column: 1 / span 3; border-left: 0; } .nums div:nth-child(5) { grid-column: span 3; } .nums div:nth-child(n+4) { border-top: 1px solid var(--line); } }
-  @media (max-width: 560px) { .nums .wrap { grid-template-columns: repeat(2, 1fr); } .nums div, .nums div:nth-child(4), .nums div:nth-child(5) { grid-column: auto; border-left: 1px solid var(--line); } .nums div:nth-child(odd) { border-left: 0; } .nums div:nth-child(n+3) { border-top: 1px solid var(--line); } .nums div:nth-child(5) { grid-column: 1 / -1; } }
+  @media (max-width: 900px) { .nums b { font-size: 34px; } .nums span { font-size: 11.5px; letter-spacing: .06em; } }
+  @media (max-width: 640px) { .nums b { font-size: 38px; } .nums span { font-size: 13px; letter-spacing: .1em; } .nums .wrap { grid-template-columns: repeat(2, 1fr); } .nums div:nth-child(odd) { border-left: 0; } .nums div:nth-child(n+3) { border-top: 1px solid var(--line); } .nums div:nth-child(5) { grid-column: 1 / -1; } }
 
   section { padding: 78px 0; }
   .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin: 0 0 10px; }
