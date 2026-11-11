@@ -40,6 +40,9 @@
   nav .wrap { display: flex; align-items: center; gap: 18px; height: 64px; }
   .logo { display: flex; align-items: center; gap: 10px; font: 400 22px var(--display); letter-spacing: .06em; color: var(--text); text-decoration: none; }
   .logo img { width: 40px; height: 32px; object-fit: contain; }
+  .logo .alfa { font: 400 15px var(--display); letter-spacing: .12em; color: #ff4a4a; border: 1px solid #ff4a4a; padding: 2px 7px 1px; line-height: 1.2; }
+  .alfa-note { border: 1px solid color-mix(in srgb, #ff4a4a 55%, transparent); background: color-mix(in srgb, #ff4a4a 9%, var(--card)); padding: 18px 22px; color: #e9e4f7; font-size: 15.5px; margin: 0 0 6px; flex: 1 0 100%; }
+  .alfa-note b { color: #ff6b6b; }
   .links { margin-left: auto; display: flex; align-items: center; gap: 22px; }
   .links a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 15px; }
   .links a:hover { color: var(--text); }
@@ -189,7 +192,7 @@
 <body>
 <nav>
   <div class="wrap">
-    <a class="logo" href="#top"><img src="assets/logo.png" alt=""> ONEBLOCK <span class="grad">RIFTS</span></a>
+    <a class="logo" href="#top"><img src="assets/logo.png" alt=""><span class="alfa">ALFA</span> ONEBLOCK <span class="grad">RIFTS</span></a>
     <button id="menu" type="button" aria-expanded="false" aria-controls="links">Menu</button>
     <div class="links" id="links">
       <a href="#hra">Co tě čeká</a>
@@ -321,7 +324,7 @@
   <div class="wrap">
     <p class="eyebrow">Podpoř server</p>
     <h2><span class="grad">VIP</span></h2>
-    <p class="sub">Všechno herní se dá získat i hraním. VIP je rychlejší, pohodlnější a podpoří provoz serveru.</p>
+    <p class="sub">Podpoř vývoj serveru. Všechno herní se dá získat i hraním, VIP je rychlejší, pohodlnější a pomůže zaplatit provoz serveru.</p>
     <div class="vip">
       <div class="price">
         <img src="assets/pet2.webp" alt="VIP pet Gryfík">
@@ -412,6 +415,7 @@
 
 <footer>
   <div class="wrap">
+    <p class="alfa-note"><b>⚠ Server je v alfě.</b> Mohou se na něm vyskytovat chyby a je možné, že bude postup ve hře během vývoje resetován.</p>
     <div>© 2026 OneBlock: Rifts · <a href="https://discord.gg/wtYRhRkCWF">Discord</a> · play.rifts.cz · info@rifts.cz</div>
     <div>Není oficiální produkt Minecraftu. Není schváleno společností Mojang ani Microsoft a nemá s nimi spojitost.</div>
   </div>
