@@ -148,10 +148,8 @@
   .role h4 { margin: 6px 0 0; font: 700 13px var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
   .role ul { margin: 0; padding-left: 20px; color: #d9d4ee; font-size: 15.5px; }
   .role li { margin: 4px 0; }
-  .tpl { position: relative; margin-top: auto; background: #0f0b1c; border: 1px solid var(--line); }
-  .tpl pre { margin: 0; padding: 16px 16px 18px; font: 14px/1.6 ui-monospace, Consolas, monospace; color: #d9d4ee; white-space: pre-wrap; }
-  .tpl .head { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
-  .tpl button { border: 0; background: var(--gold); color: #0b0812; font: 700 13px var(--body); padding: 8px 12px; cursor: pointer; }
+  .role .za { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); color: #d9d4ee; }
+  .role .za b { color: var(--gold); }
   .how { counter-reset: h; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
   .how div { background: var(--card); border: 1px solid var(--line); padding: 18px 20px; color: #cfc9e6; font-size: 15.5px; }
   .how div::before { counter-increment: h; content: counter(h) "."; font: 400 30px/1 var(--display); color: var(--gold); margin-right: 10px; }
@@ -297,39 +295,24 @@
       <article class="role" style="--c:#7cf29a">
         <span class="n">Stavitel</span>
         <h3>Builder</h3>
-        <p>Hledáme někoho se zkušenostmi se stavbou. Stavíš ve vlastním návrhu ve Světě návrhů, k ruce máš WorldEdit a hotovou mapu po schválení nasadíme do hry.</p>
-        <h4>Co postavíš</h4>
-        <ul><li>Spawn</li><li>Boss arény</li><li>Tržiště</li><li>Další stavby pro naše custom pluginy</li></ul>
-        <h4>Co za to</h4>
-        <ul><li>Kredit: tvoje jméno u stavby</li><li>Možnost podílet se na vývoji serveru</li></ul>
-        <div class="tpl"><div class="head">Vzor žádosti <button type="button" data-copy="tb">Kopírovat</button></div><pre id="tb">Nick ve hře:
-Věk:
-Jak dlouho stavíš a kde:
-Ukázky staveb (odkazy):
-Co chceš stavět:
-WorldEdit (ano / trochu / ne):
-Času týdně:</pre></div>
+        <p>Postavíš spawn, boss arény, tržiště a další stavby pro naše vlastní systémy. Stavíš ve vlastním návrhu ve Světě návrhů s WorldEditem a hotovou stavbu po schválení nasadíme do hry.</p>
+        <h4>Co potřebujeme</h4>
+        <ul><li>Zkušenosti se stavěním a ukázky staveb (screenshoty nebo odkazy)</li><li>Aspoň základy WorldEditu</li><li>Stavět podle zadání a dotáhnout stavbu do konce</li><li>Pár hodin času týdně</li></ul>
+        <p class="za"><b>Za to:</b> tvoje jméno u stavby a podíl na vývoji serveru.</p>
       </article>
       <article class="role" style="--c:#ffc857">
-        <span class="n">Alfa</span>
-        <h3>Tester</h3>
+        <span class="n">Testování</span>
+        <h3>Alfa &amp; beta tester</h3>
         <p>Hraješ normálně na svém ostrově a říkáš nám, co nefunguje, co je moc těžké a co tě nebaví. Podle toho hru ladíme.</p>
-        <h4>Co budeš dělat</h4>
-        <ul><li>Hrát a zkoušet nové systémy jako první</li><li>Hlásit chyby příkazem <code class="k">/bug</code> ve hře (za uznané chyby je odměna)</li><li>Posílat nápady a připomínky</li></ul>
-        <h4>Co za to</h4>
-        <ul><li>Hraješ dřív než ostatní</li><li>Kosmetická odměna po plném spuštění</li><li>Ovlivníš, jak bude hra vypadat</li></ul>
-        <div class="tpl"><div class="head">Vzor žádosti <button type="button" data-copy="tt">Kopírovat</button></div><pre id="tt">Nick ve hře:
-Věk:
-Času týdně na hraní:
-Zkušenosti s OneBlockem / testováním:
-Verze Minecraftu:
-Proč chceš testovat u nás:</pre></div>
+        <h4>Co potřebujeme</h4>
+        <ul><li>Chuť pravidelně hrát a zkoušet nové věci jako první</li><li>Umět popsat chybu tak, aby šla zopakovat: co jsi dělal, kde a co se stalo</li><li>Hlásit chyby příkazem <code class="k">/bug</code> ve hře</li><li>Říct na rovinu, co tě nebaví nebo je moc těžké</li></ul>
+        <p class="za"><b>Za to:</b> hraješ dřív než ostatní, odměna za uznané chyby a kosmetická odměna po plném spuštění.</p>
       </article>
     </div>
     <div class="how">
       <div>Připoj se na náš <a href="https://discord.gg/wtYRhRkCWF">Discord</a>.</div>
       <div>V kanálu <b>#založit-ticket</b> klikni na <b>Nábor – builder</b> nebo <b>Nábor – tester</b>.</div>
-      <div>V ticketu na tebe čeká stejný vzor. Vyplň ho a admin tým se ti ozve přímo tam.</div>
+      <div>V ticketu odpovíš na pár otázek a admin tým se ti ozve přímo tam.</div>
     </div>
   </div>
 </section>
@@ -441,12 +424,6 @@ Proč chceš testovat u nás:</pre></div>
   document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", async () => {
     try { await navigator.clipboard.writeText(ip); toast.textContent = "IP zkopírována – vlož ji do Minecraftu"; }
     catch (e) { toast.textContent = "Adresa: " + ip; }
-    toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2200);
-  }));
-  document.querySelectorAll("[data-copy]").forEach(b => b.addEventListener("click", async () => {
-    const txt = document.getElementById(b.dataset.copy).textContent;
-    try { await navigator.clipboard.writeText(txt); toast.textContent = "Vzor zkopírován – vlož ho do ticketu"; }
-    catch (e) { toast.textContent = "Kopírování se nepovedlo, označ text ručně"; }
     toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2200);
   }));
   const menu = document.getElementById("menu"), links = document.getElementById("links");
